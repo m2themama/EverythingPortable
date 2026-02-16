@@ -182,6 +182,7 @@ exit /b 2
 cls
 :UpgradeCitra
 set nag="CITRA HAS LONG SINCE BEEN DMCA'D CONSIDER SWITCHING TO ANOTHER SWITCH EMULATOR"
+exit /b 2
 title Portable Citra Launcher - Helper Edition - Citra Update Check
 REM call :HelperURLScraper URL URLFILE SEARCHPATTERN FILEPATTERN FILEPATTERNSTART FILEPATTERNEND ADDSTART ENDSTART VERSIONSTART VERSIONEND FILEORLINK REPLACE1 REPLACED1
 call :HelperURLScraper https://github.com/citra-emu/citra-nightly/releases/latest/ index.html /citra-emu/citra-nightly/releases/download/ citra-windows-mingw- 0 20 https://github.com XX 20 -3 file .tar.gz .7z
@@ -345,7 +346,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 22 > .\doc\version.txt
+echo 23 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
