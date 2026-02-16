@@ -177,6 +177,8 @@ exit /b 2
 
 :d
 cls
+set nag="THE GUILDED CLIENT WAS DISCONTINUED BY ROBLOX"
+exit /b 2
 :UpgradeGuilded
 title Portable Guilded Launcher - Helper Edition - Guilded Update Check
 if exist Guilded-Win.exe del Guilded-Win.exe >nul
@@ -301,7 +303,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 6 > .\doc\version.txt
+echo 7 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2

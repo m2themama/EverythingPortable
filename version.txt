@@ -33,7 +33,7 @@ discord
 opera
 20
 citra
-21
+22
 obs_classic
 23
 github_desktop
@@ -51,13 +51,13 @@ skype_legacy_poc
 project64
 20
 authy
-24
+25
 lightshot
 19
 winscp
 23
 twitch
-22
+23
 firefox
 19
 vivaldi
@@ -69,7 +69,7 @@ game_maker_studio_2
 telegram
 21
 skype
-17
+18
 bitwarden
 17
 sharex
@@ -83,7 +83,7 @@ epic_games
 deluge
 14
 minecraft_legacy
-36
+37
 tightvnc_viewer
 16
 amazon_games
@@ -115,9 +115,9 @@ sai2
 revolt
 7
 guilded
-6
+7
 yuzu
-9
+10
 parsec
 5
 gimp
@@ -140,4 +140,7 @@ jami
 5
 keys_per_second
 3
-
+azahar
+1
+eden
+1

@@ -44,8 +44,10 @@ echo.
 echo a. download dll's [dll errors anyone?]
 echo b. download other projects [check out my other stuff]
 echo c. write a quicklauncher [MAKE IT EVEN FASTER]
-echo d. check for new yuzu version [automatically check for a new version]
+REM echo d. check for new yuzu version [automatically check for a new version]
 echo e. install text-reader [update if had]
+echo.
+echo f. download azahar emulator [alternative to yuzu]
 echo.
 echo y. open explorer [open windows explorer to user directory]
 echo z. purge current install [ reset, uninstall, and delete launcher]
@@ -178,6 +180,8 @@ exit /b 2
 
 :d
 cls
+set nag="YUZU HAS LONG SINCE BEEN DMCA'D CONSIDER SWITCHING TO ANOTHER SWITCH EMULATOR"
+exit /b 2
 :UpgradeYuzu
 title Portable Yuzu Launcher - Helper Edition - Yuzu Update Check
 if exist index.html del index.html >nul
@@ -253,6 +257,14 @@ title Portable Yuzu Launcher - Helper Edition - Text-Reader Update Check
 cls
 call :HelperDownload "https://mariomasta64.me/batch/text-reader/update-text-reader.bat" "update-text-reader.bat"
 start "" "update-text-reader.bat"
+exit /b 2
+
+:f
+:DownloadEdenLauncher
+cls & title Portable Yuzu Launcher - Helper Edition - Download Eden Launcher
+call :HelperDownload "https://raw.githubusercontent.com/MarioMasta64/EverythingPortable/master/launch_eden.bat" "launch_eden.bat.1"
+cls & if exist launch_eden.bat.1 del launch_eden.bat >nul & rename launch_eden.bat.1 launch_eden.bat
+cls & start launch_eden.bat
 exit /b 2
 
 :y
@@ -358,7 +370,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 9 > .\doc\version.txt
+echo 10 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2

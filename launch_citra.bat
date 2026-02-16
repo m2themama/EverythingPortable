@@ -47,6 +47,8 @@ echo c. write a quicklauncher [MAKE IT EVEN FASTER]
 echo d. check for new citra version [automatically check for a new version]
 echo e. install text-reader [update if had]
 echo.
+echo f. download azahar emulator [continuation of citra]
+echo.
 echo y. open explorer [open windows explorer to user directory]
 echo z. purge current install [ reset, uninstall, and delete launcher]
 echo.
@@ -179,6 +181,7 @@ exit /b 2
 :d
 cls
 :UpgradeCitra
+set nag="CITRA HAS LONG SINCE BEEN DMCA'D CONSIDER SWITCHING TO ANOTHER SWITCH EMULATOR"
 title Portable Citra Launcher - Helper Edition - Citra Update Check
 REM call :HelperURLScraper URL URLFILE SEARCHPATTERN FILEPATTERN FILEPATTERNSTART FILEPATTERNEND ADDSTART ENDSTART VERSIONSTART VERSIONEND FILEORLINK REPLACE1 REPLACED1
 call :HelperURLScraper https://github.com/citra-emu/citra-nightly/releases/latest/ index.html /citra-emu/citra-nightly/releases/download/ citra-windows-mingw- 0 20 https://github.com XX 20 -3 file .tar.gz .7z
@@ -229,6 +232,14 @@ title Portable Citra Launcher - Helper Edition - Text-Reader Update Check
 cls
 call :HelperDownload "https://mariomasta64.me/batch/text-reader/update-text-reader.bat" "update-text-reader.bat"
 start "" "update-text-reader.bat"
+exit /b 2
+
+:f
+:DownloadAzaharLauncher
+cls & title Portable Citra Launcher - Helper Edition - Download Azahar Launcher
+call :HelperDownload "https://raw.githubusercontent.com/MarioMasta64/EverythingPortable/master/launch_azahar.bat" "launch_azahar.bat.1"
+cls & if exist launch_azahar.bat.1 del launch_azahar.bat >nul & rename launch_azahar.bat.1 launch_azahar.bat
+cls & start launch_azahar.bat
 exit /b 2
 
 :y
@@ -334,7 +345,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 21 > .\doc\version.txt
+echo 22 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2

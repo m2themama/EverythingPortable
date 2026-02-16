@@ -174,6 +174,8 @@ exit /b 2
 
 :d
 :UpgradeSkype
+set nag="SKYPE HAS BEEN DISCONTINUED IT IS NO LONGER POSSIBLE TO DOWNLOAD OR USE IT"
+exit /b 2
 title Portable Skype Launcher - Helper Edition - Skype Update Check
 if exist windows.desktop.download del windows.desktop.download >nul
 :CheckSkypeEXE
@@ -308,7 +310,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 17 > .\doc\version.txt
+echo 18 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2

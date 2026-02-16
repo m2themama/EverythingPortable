@@ -182,6 +182,8 @@ exit /b 2
 
 :d
 cls
+set nag="THE TWITCH DESKTOP CLIENT WAS DISCONTINUED"
+exit /b 2
 :UpgradeTwitch
 title Portable Twitch Launcher - Helper Edition - Twitch Update Check
 if "!NoPrompt!" EQU "1" (
@@ -238,6 +240,8 @@ exit /b 2
 :UpgradeTwitch
 title Portable Twitch Launcher - Helper Edition - Manual And Long Twitch Update Check
 cls
+set nag="THE TWITCH DESKTOP CLIENT WAS DISCONTINUED"
+exit /b 2
 echo Twitch Stable vs. Twitch Beta
 echo 1. Twitch Stable
 echo 2. Twitch Beta

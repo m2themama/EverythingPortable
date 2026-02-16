@@ -26,6 +26,8 @@ if not exist .\extra\ mkdir .\extra\
 
 :main
 cls
+echo skype has been discontinued and replaced by teams it is no longer usable
+echo.
 echo rm: Set Removable
 echo dp: Set Data Path
 echo us: Set Username

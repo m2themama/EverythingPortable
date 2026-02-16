@@ -184,6 +184,8 @@ exit /b 2
 
 :d
 cls
+set nag="THE LEGACY MINECRAFT LAUNCHER FOR MINECRAFT WAS DISCONTINUED YOU MUST USE THE NEW LAUNCHER"
+exit /b 2
 :UpgradeMinecraft
 title Portable Minecraft Legacy Launcher - Helper Edition - Minecraft Legacy Update Check
 if exist Minecraft.jar del Minecraft.jar >nul
@@ -432,7 +434,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 36 > .\doc\version.txt
+echo 37 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2

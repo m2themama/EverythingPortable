@@ -173,6 +173,8 @@ exit /b 2
 
 :d
 cls
+set nag="THE AUTHY DESKTOP CLIENT HAS BEEN DISCONTINUED IT IS NO LONGER POSSIBLE TO DOWNLOAD IT"
+exit /b 2
 :UpgradeAuthy
 cls
 set /a cycle1=2
@@ -315,7 +317,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 24 > .\doc\version.txt
+echo 25 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
