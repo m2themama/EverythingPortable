@@ -240,14 +240,13 @@ exit /b 2
 cls
 :UpgradePPSSPP
 if exist index.html del index.html >nul
-if exist downloads.html del downloads.html >nul
-call :HelperDownload "https://www.ppsspp.org/downloads.html" "downloads.html"
+call :HelperDownload "https://www.ppsspp.org/download/" "index.html"
 for /f tokens^=4delims^=^" %%A in (
-  'findstr /i /c:".zip" downloads.html'
+  'findstr /i /c:"_win.zip" index.html'
 ) Do > .\doc\ppsspp_link.txt Echo:%%A
-if exist downloads.html del downloads.html >nul
+if exist index.html del index.html >nul
 set /p ppsspp_link=<.\doc\ppsspp_link.txt
-set "ppsspp_link=https://www.ppsspp.org/!ppsspp_link!"
+set "ppsspp_link=!ppsspp_link!"
 set "tempstr=!ppsspp_link!"
 set "result=%tempstr:/=" & set "result=%"
 set "ppsspp_zip=!result!"
@@ -377,7 +376,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 31 > .\doc\version.txt
+echo 32 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
