@@ -1,0 +1,8 @@
+===================================================================================
+=                               https://edenemu.com/                              =
+===================================================================================
+=        Eden Emulator is a free and open-source Nintendo Switch Emulator.        =
+=         Run Freely this emulator on Linux, Windows and Android devices.         =
+=                The main purpose of this emulator is to run games.               =
+=                       Download 100% secure Eden Emulator.                       =
+===================================================================================
