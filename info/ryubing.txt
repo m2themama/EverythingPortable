@@ -1,0 +1,10 @@
+===============================================================================
+=                   https://git.ryujinx.app/ryubing/ryujinx/                  =
+===============================================================================
+=  Ryujinx is an open-source Nintendo Switch emulator created by gdkchan and  =
+=    written in C#. This emulator aims at providing excellent accuracy and    =
+=        performance, a user-friendly interface, and consistent builds.       =
+=                                                                             =
+=  On October 1st 2024, Ryujinx was discontinued as the creator was forced to =
+=       abandon the project. This fork is intended to be a QoL uplift.        =
+===============================================================================

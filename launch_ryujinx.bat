@@ -48,6 +48,8 @@ echo c. write a quicklauncher [MAKE IT EVEN FASTER]
 echo d. check for new ryujinx version [automatically check for a new version]
 echo e. install text-reader [update if had]
 echo.
+echo f. download ryubing emulator [continuation of ryujinx]
+echo.
 echo y. open explorer [open windows explorer to user directory]
 echo z. purge current install [ reset, uninstall, and delete launcher]
 echo.
@@ -187,6 +189,8 @@ exit /b 2
 :d
 cls
 :UpgradeRyujinx
+set nag="RYUJINX HAS LONG SINCE BEEN SUCCEEDED BY RYUBING"
+exit /b 2
 title Portable Ryujinx Launcher - Helper Edition - Ryujinx Update Check
 if exist index.html del index.html >nul
 call :HelperDownload "https://github.com/Ryujinx/release-channel-master/releases/latest/" "index.html"
@@ -247,6 +251,14 @@ title Portable Ryujinx Launcher - Helper Edition - Text-Reader Update Check
 cls
 call :HelperDownload "https://mariomasta64.me/batch/text-reader/update-text-reader.bat" "update-text-reader.bat"
 start "" "update-text-reader.bat"
+exit /b 2
+
+:f
+:DownloadAzaharLauncher
+cls & title Portable Ryujinx Launcher - Helper Edition - Download Ryubing Launcher
+call :HelperDownload "https://raw.githubusercontent.com/MarioMasta64/EverythingPortable/master/launch_ryubing.bat" "launch_ryubing.bat.1"
+cls & if exist launch_ryubing.bat.1 del launch_ryubing.bat >nul & rename launch_ryubing.bat.1 launch_ryubing.bat
+cls & start launch_ryubing.bat
 exit /b 2
 
 :y
@@ -352,7 +364,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 5 > .\doc\version.txt
+echo 6 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2

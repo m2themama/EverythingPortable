@@ -135,7 +135,7 @@ fiddler
 osu
 3
 ryujinx
-5
+6
 jami
 5
 keys_per_second
@@ -143,4 +143,6 @@ keys_per_second
 azahar
 1
 eden
+1
+ryubing
 1
