@@ -192,7 +192,7 @@ exit /b 2
 cls
 :UpgradeRyubing
 title Portable Ryubing Launcher - Helper Edition - Ryubing Update Check
-call :HelperDownload "https://update.ryubing.app/download/query?os=win&arch=x64&rc=stable" "ryubing.zip"
+call :HelperDownload "https://update.ryujinx.app/download/query?os=win&arch=x64&rc=stable" "query@os=win&arch=x64&rc=stable"
 :MoveRyubing
 move "query@os=win&arch=x64&rc=stable" ".\extra\ryubing.zip"
 :ExtractRyubing
@@ -327,7 +327,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 1 > .\doc\version.txt
+echo 2 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
