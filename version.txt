@@ -141,8 +141,8 @@ jami
 keys_per_second
 3
 azahar
-1
-eden
-1
-ryubing
 2
+eden
+2
+ryubing
+3
