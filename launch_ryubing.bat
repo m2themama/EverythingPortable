@@ -48,10 +48,7 @@ echo c. write a quicklauncher [MAKE IT EVEN FASTER]
 echo d. check for new ryubing version [automatically check for a new version]
 echo e. install text-reader [update if had]
 echo.
-if exist .\bin\ryujinx\portable\ (
-  echo f. import ryujinx config [will overwrite current config]
-  echo.
-)
+if exist .\bin\ryujinx\portable\ echo f. import ryujinx config [will overwrite current config] & echo.
 echo y. open explorer [open windows explorer to user directory]
 echo z. purge current install [ reset, uninstall, and delete launcher]
 echo.
@@ -327,7 +324,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 3 > .\doc\version.txt
+echo 4 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
