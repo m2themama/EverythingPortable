@@ -181,33 +181,51 @@ cls
 :UpgradeShareX
 title Portable ShareX Launcher - Helper Edition - ShareX Update Check
 if exist index.html del index.html >nul
-call :HelperDownload "https://github.com/ShareX/ShareX/releases/" "index.html"
-for /f tokens^=2delims^=^" %%A in (
-  'findstr /i /c:".zip" index.html'
-) Do > .\doc\sharex_link.txt Echo:%%A & goto :stop_search
-:stop_search
+call :HelperDownload "https://github.com/ShareX/ShareX/releases/latest/" "index.html"
+set counter=0
+:UpgradeSearchLoop
+set /a counter+=1
+for /f tokens^=%counter%delims^=^" %%A in (
+  'findstr /i /c:"-portable.zip" index.html'
+) Do > .\doc\sharex_link.txt Echo:%%A
 set /p sharex_link=<.\doc\sharex_link.txt
-set "sharex_link=https://github.com!sharex_link:~0,-1!"
+if "!Debug!" EQU "1" (
+  echo !sharex_link!
+  echo !counter!
+)
+if "!sharex_link:~4,7!"=="ShareX-" ( if "!Debug!" EQU "1" ( echo hit ) ) & goto ExitUpgradeSearchLoop
+if "!sharex_link:~0,7!"=="ShareX-" ( if "!Debug!" EQU "1" ( echo hit ) ) & goto ExitUpgradeSearchLoop
+goto UpgradeSearchLoop
+:ExitUpgradeSearchLoop
+if exist index.html del index.html >nul
+set "sharex_link=!sharex_link:<td>=!"
+set "sharex_link=!sharex_link:</td>=!"
+set "sharex_link=https://github.com/ShareX/ShareX/releases/download/v!sharex_link:~7,-13!/!sharex_link!"
 set "tempstr=!sharex_link!"
 set "result=%tempstr:/=" & set "result=%"
 set "sharex_zip=!result!"
-if exist index.html del index.html >nul
 if "!Debug!" EQU "1" (
   cls
-  echo "!sharex_link!"
+  echo "!sharex_zip:~7,-13!"
   echo "!sharex_zip!"
+  echo "!sharex_link!"
   echo PRESS ENTER TO CONTINUE & pause >nul
 )
-if exist "!sharex_zip!" del "!sharex_zip!" >nul
+if exist index.html del index.html >nul
+if exist latest.txt del latest.txt >nul
+cls
 if exist ".\extra\!sharex_zip!" (
   echo sharex is updated.
   pause
-  exit /b
+  exit /b 2
 )
+cls
+echo upgrading to sharex v!sharex_zip:~7,-13!
 call :HelperDownload "!sharex_link!" "!sharex_zip!"
 :MoveShareX
 move "!sharex_zip!" ".\extra\!sharex_zip!"
 :ExtractShareX
+if exist .\bin\sharex\bin\ rmdir /s /q .\bin\sharex\bin\
 call :HelperExtract "!folder!\extra\!sharex_zip!" "!folder!\bin\sharex\"
 :NullExtra
 if "!NullExtra!" EQU "1" ( echo.>".\extra\!sharex_zip!")
@@ -323,7 +341,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 18 > .\doc\version.txt
+echo 19 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2

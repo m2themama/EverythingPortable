@@ -73,7 +73,7 @@ skype
 bitwarden
 17
 sharex
-18
+19
 streamlabs_obs
 17
 deep_shredder
