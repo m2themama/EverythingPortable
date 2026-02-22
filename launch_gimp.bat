@@ -198,7 +198,7 @@ if "!Debug!" EQU "1" (
   echo !gimp_link!
   echo !counter!
 )
-if "!gimp_link:~0,29!"=="//download.gimp.org/pub/gimp/" ( if "!Debug!" EQU "1" ( echo hit ) ) & goto ExitUpgradeSearchLoop
+if "!gimp_link:~0,25!"=="//download.gimp.org/gimp/" ( if "!Debug!" EQU "1" ( echo hit ) ) & goto ExitUpgradeSearchLoop
 goto UpgradeSearchLoop
 :ExitUpgradeSearchLoop
 if exist index.html del index.html >nul
@@ -388,7 +388,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 5 > .\doc\version.txt
+echo 6 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2

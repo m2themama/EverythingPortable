@@ -121,7 +121,7 @@ yuzu
 parsec
 5
 gimp
-5
+6
 vlc
 8
 rpcs3
