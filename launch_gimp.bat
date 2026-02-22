@@ -247,33 +247,38 @@ echo upgrading to gimp v!gimp_exe:~5,-13!
 call :HelperDownload "!gimp_link!" "!gimp_exe!"
 :MoveGimp
 move "!gimp_exe!" ".\extra\!gimp_exe!"
-:ExtractGimp
-call :HelperExtractInno "!folder!\extra\!gimp_exe!" "!folder!\temp\"
-:RenameGimp
-if exist source.txt del source.txt >nul
-if exist folder.txt del folder.txt >nul
-if exist target.txt del target.txt >nul
-:CopyGimp
-echo Loading File Into Memory
-set "AppDir=bin\gimp"
-for /f tokens^=2-6delims^=^" %%A in (
-  'findstr /i /c:"Source" .\temp\install_script.iss'
-) Do (
-  set /a Counter+=1
-  set "Source=%%A"
-  set "Source_Original=%%A"
-  set "Target=%%C"
-  set "Source=.\temp\!Source!"
-  set "Target=!Target:{app}=.\%AppDir%!\"
-  set "Target=!Target:\\=\!"
-  if "%%E" neq "" set "Target=!Target!%%E"
-  REM echo xcopy "!Source!" "!Target!" /e /i /y
-  REM using find may add more lag than its worth and may be removed in the future
-  if "!Source_Original:~0,5!"=="{app}" echo f | xcopy "!Source!" "!Target!" /e /i /y|find /v "File(s) copied"
-)
-REM currently twain does not run without crashing so it is removed, twain is for scanning images into gimp from a scanner
+:InstallGimp
+cls
+echo GO THROUGH SETUP AND DO NOT HIT LAUNCH GIMP ONCE FINISHED RETURN HERE
+pause
+"!folder!\extra\!gimp_exe!" /currentuser /dir=E:\bin\gimp\ /norestart /supressmsgboxes /closeapplications /nocancel /sp-
+REM :ExtractGimp
+REM call :HelperExtractInno "!folder!\extra\!gimp_exe!" "!folder!\temp\"
+REM :RenameGimp
+REM if exist source.txt del source.txt >nul
+REM if exist folder.txt del folder.txt >nul
+REM if exist target.txt del target.txt >nul
+REM :CopyGimp
+REM echo Loading File Into Memory
+REM set "AppDir=bin\gimp"
+REM for /f tokens^=2-6delims^=^" %%A in (
+REM   'findstr /i /c:"Source" .\temp\install_script.iss'
+REM ) Do (
+REM   set /a Counter+=1
+REM   set "Source=%%A"
+REM   set "Source_Original=%%A"
+REM   set "Target=%%C"
+REM   set "Source=.\temp\!Source!"
+REM   set "Target=!Target:{app}=.\%AppDir%!\"
+REM   set "Target=!Target:\\=\!"
+REM   if "%%E" neq "" set "Target=!Target!%%E"
+REM   REM echo xcopy "!Source!" "!Target!" /e /i /y
+REM   REM using find may add more lag than its worth and may be removed in the future
+REM   if "!Source_Original:~0,5!"=="{app}" echo f | xcopy "!Source!" "!Target!" /e /i /y|find /v "File(s) copied"
+REM )
+REM REM currently twain does not run without crashing so it is removed, twain is for scanning images into gimp from a scanner
 if exist .\bin\gimp\lib\gimp\2.0\plug-ins\twain\ rmdir /s /q .\bin\gimp\lib\gimp\2.0\plug-ins\twain\
-if exist ".\temp\" rmdir /s /q ".\temp\"
+REM if exist ".\temp\" rmdir /s /q ".\temp\"
 :NullExtra
 if "!NullExtra!" EQU "1" ( echo.>".\extra\!gimp_exe!")
 exit /b 2
@@ -388,7 +393,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 7 > .\doc\version.txt
+echo 8 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
