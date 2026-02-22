@@ -127,7 +127,7 @@ vlc
 rpcs3
 7
 notepad_plus_plus
-8
+9
 dolphin_beta
 8
 fiddler

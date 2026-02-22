@@ -194,11 +194,11 @@ if "!Debug!" EQU "1" (
   echo !notepad++_link!
   echo !counter!
 )
-if "!notepad++_link:~1,4!"=="npp." ( if "!Debug!" EQU "1" ( echo hit ) ) & goto ExitUpgradeSearchLoop
+if "!notepad++_link:~66,4!"=="npp." ( if "!Debug!" EQU "1" ( echo hit ) ) & goto ExitUpgradeSearchLoop
 goto UpgradeSearchLoop
 :ExitUpgradeSearchLoop
 if exist index.html del index.html >nul
-set "notepad++_link=!notepad++_link:~1,-7!"
+set "notepad++_link=!notepad++_link:~66!"
 set "notepad++_link=!notepad++_link:.sig=!"
 set "notepad++_link=!notepad++_link:x64=!"
 set "notepad++_link=https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v!notepad++_link:~4,-12!/!notepad++_link!
@@ -404,7 +404,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 8 > .\doc\version.txt
+echo 9 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
