@@ -41,7 +41,7 @@ github_desktop
 uwamp
 19
 qbittorrent
-23
+24
 ntlite
 18
 dolphin
