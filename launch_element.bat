@@ -74,12 +74,33 @@ exit /b 2
 
 :2
 :LaunchElement
-if not exist ".\.\bin\element\Element.exe" set "nag=PLEASE INSTALL ELEMENT FIRST" & exit /b 2
+if not exist ".\bin\element\Element.exe" set "nag=PLEASE INSTALL ELEMENT FIRST" & exit /b 2
 title DO NOT CLOSE
 set "path=!PATH!;!folder!\dll\64\;"
 cls
 echo ELEMENT IS RUNNING
-start .\.\bin\element\Element.exe
+if exist "!RealUserProfile!\AppData\Roaming\Element\" call :ImportElementData
+if not exist ".\data\Users\MarioMasta64\AppData\Roaming\Element\" (
+  set "AppData=!RealUserProfile!\AppData\Roaming"
+  set "UserProfile=!RealUserProfile!"
+  cls
+  echo FOR FIRST SETUP YOU HAVE TO LOGIN NATURALLY AS THE API WILL TRY TO OPEN GITHUB AGAIN BUT WITHOUT THE REDIRECTIONS
+  echo TO GET AROUND THIS WE WILL BE LAUNCHING NORMALLY THEN ONCE YOU ARE LOGGED IN YOUR APPLICATION WILL CLOSE AND IT WILL BE COPIED
+  echo NO CHANGES ARE NEEDED IN THE FUTURE
+  echo.
+  echo WHEN YOU ARE FINISHED LOGGING IN AND CONFIGURING GIT CLOSE THE PROGRAM THEN COME BACK HERE AND PRESS CTRL+C AND IT WILL IMPORT IT AND RELAUNCH
+  pause
+  start .\bin\github_desktop\GitHubDesktop.exe
+  set "AppData=!folder!\data\Users\MarioMasta64\AppData\Roaming"
+  set "UserProfile=!folder!\data\Users\MarioMasta64"
+  set "NAG=NOW RELAUNCH ELEMENT WITH 2"
+  exit /b 2
+) else (
+  set "Path=!path!;!folder!\bin\github_desktop\resources\app\git\cmd\"
+  set "Home=!folder!\data\Users\MarioMasta64"
+  start .\bin\element\Element.exe
+  exit
+)
 exit
 
 :3
@@ -172,7 +193,7 @@ echo set "LocalAppData=%%folder%%\data\Users\MarioMasta64\AppData\Local">>!quick
 echo set "ProgramData=%%folder%%\data\ProgramData">>!quick_launcher!
 echo set "path=%%PATH%%;%%folder%%\dll\64\;">>!quick_launcher!
 echo cls>>!quick_launcher!
-echo start .\.\bin\element\Element.exe>>!quick_launcher!
+echo start .\bin\element\Element.exe>>!quick_launcher!
 echo exit>>!quick_launcher!
 echo A QUICKLAUNCHER HAS BEEN WRITTEN TO:!quick_launcher!
 if not exist .\doc\everything_quicklaunch.txt echo ENTER TO CONTINUE & pause >nul
@@ -202,6 +223,12 @@ title Portable Element Launcher - Helper Edition - Text-Reader Update Check
 cls
 call :HelperDownload "https://mariomasta64.me/batch/text-reader/update-text-reader.bat" "update-text-reader.bat"
 start "" "update-text-reader.bat"
+exit /b 2
+
+:f
+:ImportElementData
+xcopy "!RealUserProfile!\AppData\Roaming\Element\*" ".\data\Users\MarioMasta64\AppData\Roaming\Element\" /E /I /Y
+rmdir /s /q "!RealUserProfile!\AppData\Roaming\Element\"
 exit /b 2
 
 :y
@@ -275,7 +302,7 @@ if not exist ".\data\Users\MarioMasta64\Saved Games\" mkdir ".\data\Users\MarioM
 if not exist ".\data\Users\MarioMasta64\Searches\" mkdir ".\data\Users\MarioMasta64\Searches\"
 if not exist ".\data\Users\MarioMasta64\Videos\" mkdir ".\data\Users\MarioMasta64\Videos\"
 if not exist ".\data\Users\MarioMasta64\AppData\Roaming\Microsoft\Windows\Recent\" mkdir ".\data\Users\MarioMasta64\AppData\Roaming\Microsoft\Windows\Recent\"
-if not exist ".\.\bin\element\Element.exe" set nag=ELEMENT IS NOT INSTALLED CHOOSE "D"
+if not exist ".\bin\element\Element.exe" set nag=ELEMENT IS NOT INSTALLED CHOOSE "D"
 exit /b 2
 
 :SettingsCheck
@@ -307,7 +334,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 1 > .\doc\version.txt
+echo 2 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
