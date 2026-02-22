@@ -223,7 +223,7 @@ if "%gimp_temp:~-1%"=="/" (
 )
 set /p gimp_exe=<.\doc\gimp_exe.txt
 set "gimp_version=!gimp_link!"
-set "gimp_version=!gimp_version:https://download.gimp.org/pub/gimp/=!"
+set "gimp_version=!gimp_version:https://download.gimp.org/gimp/=!"
 set "gimp_version=!gimp_version:/windows/%gimp_exe%=!"
 set "gimp_version=!gimp_version:~1!"
 echo !gimp_version!>.\doc\gimp_version.txt
@@ -388,7 +388,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 6 > .\doc\version.txt
+echo 7 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
