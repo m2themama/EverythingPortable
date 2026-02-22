@@ -31,7 +31,7 @@ discord_canary
 discord
 30
 opera
-20
+21
 citra
 23
 obs_classic
@@ -97,7 +97,7 @@ uplay
 wechat
 8
 opera_gx
-7
+8
 mega
 9
 thunderbird

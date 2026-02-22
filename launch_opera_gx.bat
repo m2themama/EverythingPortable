@@ -72,11 +72,11 @@ exit /b 2
 
 :2
 :LaunchOperaGX
-if not exist ".\bin\opera_gx\launcher.exe" set "nag=PLEASE INSTALL OPERA GX FIRST" & exit /b 2
+if not exist ".\bin\opera_gx\opera.exe" set "nag=PLEASE INSTALL OPERA GX FIRST" & exit /b 2
 title DO NOT CLOSE
 cls
 echo OPERA GX IS RUNNING
-.\bin\opera_gx\launcher.exe https://github.com/MarioMasta64/EverythingPortable/releases/latest/
+.\bin\opera_gx\opera.exe https://github.com/MarioMasta64/EverythingPortable/
 taskkill /f /im opera_crashreporter.exe
 exit
 
@@ -174,7 +174,7 @@ echo set "AppData=%%folder%%\data\Users\MarioMasta64\AppData\Roaming">>!quick_la
 echo set "LocalAppData=%%folder%%\data\Users\MarioMasta64\AppData\Local">>!quick_launcher!
 echo set "ProgramData=%%folder%%\data\ProgramData">>!quick_launcher!
 echo cls>>!quick_launcher!
-echo .\bin\opera_gx\launcher.exe https://github.com/MarioMasta64/EverythingPortable/releases/latest/>>!quick_launcher!
+echo .\bin\opera_gx\opera.exe https://github.com/MarioMasta64/EverythingPortable/>>!quick_launcher!
 echo taskkill /f /im opera_crashreporter.exe>>!quick_launcher!
 echo exit>>!quick_launcher!
 echo A QUICKLAUNCHER HAS BEEN WRITTEN TO:!quick_launcher!
@@ -187,15 +187,18 @@ cls
 if exist "windows@utm_tryagain=yes&utm_source=bing_via_opera_com&utm_medium=ose&utm_campaign=(none)_via_opera_com_https&http_referrer=httpsAFFwww.bing.comF&utm_site=opera_com&&utm_lastpage=opera.com%%2F" del "windows@utm_tryagain=yes&utm_source=bing_via_opera_com&utm_medium=ose&utm_campaign=(none)_via_opera_com_https&http_referrer=httpsAFFwww.bing.comF&utm_site=opera_com&&utm_lastpage=opera.com%%2F" >nul
 call :HelperDownload "https://net.geo.opera.com/opera_gx/stable/windows?utm_tryagain=yes&utm_source=bing_via_opera_com&utm_medium=ose&utm_campaign=(none)_via_opera_com_https&http_referrer=https%%3A%%2F%%2Fwww.bing.com%%2F&utm_site=opera_com&&utm_lastpage=opera.com/" "thanks@ni=eapgx&os=windows"
 :MoveOperaGX
-move "windows@utm_tryagain=yes&utm_source=bing_via_opera_com&utm_medium=ose&utm_campaign=(none)_via_opera_com_https&http_referrer=httpsAFFwww.bing.comF&utm_site=opera_com&&utm_lastpage=opera.com%%2F" ".\extra\opera_gx.exe"
+move "windows@utm_tryagain=yes&utm_source=bing_via_opera_com&utm_medium=ose&utm_campaign=(none)_via_opera_com_https&http_referrer=httpsAFFwww.bing.comF&utm_site=opera_com&&utm_lastpage=opera.com%%2F" ".\extra\OperaGXSetup.exe"
+:ExtractOpera
+call :HelperExtract7Zip "!CD!\extra\OperaGXSetup.exe" "!CD!\temp\"
 :InstallOperaGX
 set "TMP=!folder!\data\AppData\Local\temp\"
 cls
 echo Please Wait, Opera GX Is Installing...
-.\extra\opera_gx.exe /silent /installfolder=!folder!\bin\opera_gx\ /allusers=0 /copyonly=1 /singleprofile=1 /setdefaultbrowser=0 /desktopshortcut=0 /startmenushortcut=0 /quicklaunchshortcut=0 /pintotaskbar=0 /import-browser-data=0 /enable-stats=0 /enable-installer-stats=0 /launchbrowser=0
+.\temp\setup.exe /silent /installfolder=!folder!\bin\opera_gx\ /allusers=0 /copyonly=1 /singleprofile=1 /setdefaultbrowser=0 /desktopshortcut=0 /startmenushortcut=0 /quicklaunchshortcut=0 /pintotaskbar=0 /import-browser-data=0 /enable-stats=0 /enable-installer-stats=0 /launchbrowser=0
 if exist .\data\Users\MarioMasta64\AppData\Local\temp\ rmdir /s /q .\data\Users\MarioMasta64\AppData\Local\temp\
 :CleanupPostInstall
 if exist *.log del *.log >nul
+rmdir /s /q .\temp\
 :NullExtra
 if "!NullExtra!" EQU "1" ( echo.>".\extra\opera_gx.exe")
 exit /b 2
@@ -278,7 +281,7 @@ if not exist ".\data\Users\MarioMasta64\Saved Games\" mkdir ".\data\Users\MarioM
 if not exist ".\data\Users\MarioMasta64\Searches\" mkdir ".\data\Users\MarioMasta64\Searches\"
 if not exist ".\data\Users\MarioMasta64\Videos\" mkdir ".\data\Users\MarioMasta64\Videos\"
 if not exist ".\data\Users\MarioMasta64\AppData\Roaming\Microsoft\Windows\Recent\" mkdir ".\data\Users\MarioMasta64\AppData\Roaming\Microsoft\Windows\Recent\"
-if not exist ".\bin\opera_gx\launcher.exe" set nag=OPERA GX IS NOT INSTALLED CHOOSE "D"
+if not exist ".\bin\opera_gx\opera.exe" set nag=OPERA GX IS NOT INSTALLED CHOOSE "D"
 exit /b 2
 
 :SettingsCheck
@@ -310,7 +313,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 7 > .\doc\version.txt
+echo 8 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2

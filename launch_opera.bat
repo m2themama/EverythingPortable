@@ -72,11 +72,11 @@ exit /b 2
 
 :2
 :LaunchOpera
-if not exist ".\bin\opera\launcher.exe" set "nag=PLEASE INSTALL OPERA FIRST" & exit /b 2
+if not exist ".\bin\opera\opera.exe" set "nag=PLEASE INSTALL OPERA FIRST" & exit /b 2
 title DO NOT CLOSE
 cls
 echo OPERA IS RUNNING
-.\bin\opera\launcher.exe https://github.com/MarioMasta64/EverythingPortable/releases/latest/
+.\bin\opera\opera.exe https://github.com/MarioMasta64/EverythingPortable/
 taskkill /f /im opera_crashreporter.exe
 exit
 
@@ -115,7 +115,7 @@ taskkill /f /im opera.exe
 taskkill /f /im opera_crashreporter.exe
 for /d %%i in (".\bin\opera\*") do if /i not "%%i"==".\bin\opera\profile" if exist "%%i" rmdir /s /q "%%i"
 echo y | if exist .\bin\opera\*.* del .\bin\opera\*.* >nul
-if exist .\extra\opera.exe del .\extra\opera.exe >nul
+if exist .\extra\Opera_PortableSetup.exe del .\extra\Opera_PortableSetup.exe >nul
 exit /b 2
 
 :5
@@ -174,7 +174,7 @@ echo set "AppData=%%folder%%\data\Users\MarioMasta64\AppData\Roaming">>!quick_la
 echo set "LocalAppData=%%folder%%\data\Users\MarioMasta64\AppData\Local">>!quick_launcher!
 echo set "ProgramData=%%folder%%\data\ProgramData">>!quick_launcher!
 echo cls>>!quick_launcher!
-echo .\bin\opera\launcher.exe https://github.com/MarioMasta64/EverythingPortable/releases/latest/>>!quick_launcher!
+echo .\bin\opera\opera.exe https://github.com/MarioMasta64/EverythingPortable/>>!quick_launcher!
 echo taskkill /f /im opera_crashreporter.exe>>!quick_launcher!
 echo exit>>!quick_launcher!
 echo A QUICKLAUNCHER HAS BEEN WRITTEN TO:!quick_launcher!
@@ -187,17 +187,20 @@ cls
 if exist "windows@http_referrer=missing_via_opera_com&utm_source=(direct)_via_opera_com&utm_medium=doc&utm_campaign=(direct)_via_opera_com&dl_token=39379966" del "windows@http_referrer=missing_via_opera_com&utm_source=(direct)_via_opera_com&utm_medium=doc&utm_campaign=(direct)_via_opera_com&dl_token=39379966" >nul
 call :HelperDownload "http://net.geo.opera.com/opera_portable/stable/windows?http_referrer=missing_via_opera_com&utm_source=(direct)_via_opera_com&utm_medium=doc&utm_campaign=(direct)_via_opera_com&dl_token=39379966" "windows@http_referrer=missing_via_opera_com&utm_source=(direct)_via_opera_com&utm_medium=doc&utm_campaign=(direct)_via_opera_com&dl_token=39379966"
 :MoveOpera
-move "windows@http_referrer=missing_via_opera_com&utm_source=(direct)_via_opera_com&utm_medium=doc&utm_campaign=(direct)_via_opera_com&dl_token=39379966" ".\extra\opera.exe"
+move "windows@http_referrer=missing_via_opera_com&utm_source=(direct)_via_opera_com&utm_medium=doc&utm_campaign=(direct)_via_opera_com&dl_token=39379966" ".\extra\Opera_PortableSetup.exe"
+:ExtractOpera
+call :HelperExtract7Zip "!CD!\extra\Opera_PortableSetup.exe" "!CD!\temp\"
 :InstallOpera
 set "TMP=!folder!\data\AppData\Local\temp\"
 cls
 echo Please Wait, Opera Is Installing...
-.\extra\opera.exe /silent /installfolder=!folder!\bin\opera\ /allusers=0 /copyonly=1 /singleprofile=1 /setdefaultbrowser=0 /desktopshortcut=0 /startmenushortcut=0 /quicklaunchshortcut=0 /pintotaskbar=0 /import-browser-data=0 /enable-stats=0 /enable-installer-stats=0 /launchbrowser=0
+.\temp\setup.exe /silent /installfolder=!folder!\bin\opera\ /allusers=0 /copyonly=1 /singleprofile=1 /setdefaultbrowser=0 /desktopshortcut=0 /startmenushortcut=0 /quicklaunchshortcut=0 /pintotaskbar=0 /import-browser-data=0 /enable-stats=0 /enable-installer-stats=0 /launchbrowser=0
 if exist .\data\Users\MarioMasta64\AppData\Local\temp\ rmdir /s /q .\data\Users\MarioMasta64\AppData\Local\temp\
 :CleanupPostInstall
 if exist *.log del *.log >nul
+rmdir /s /q .\temp\
 :NullExtra
-if "!NullExtra!" EQU "1" ( echo.>".\extra\opera.exe")
+if "!NullExtra!" EQU "1" ( echo.>".\extra\Opera_PortableSetup.exe")
 exit /b 2
 
 :e
@@ -310,7 +313,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 20 > .\doc\version.txt
+echo 21 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
