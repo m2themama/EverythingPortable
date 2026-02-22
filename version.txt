@@ -139,7 +139,7 @@ ryujinx
 jami
 5
 keys_per_second
-3
+4
 azahar
 2
 eden

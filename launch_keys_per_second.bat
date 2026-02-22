@@ -179,23 +179,35 @@ exit /b 2
 cls
 :UpgradeKeysPerSecond
 title Portable Keys Per Second Launcher - Helper Edition - Keys Per Second Update Check
-REM call :HelperURLScraper URL URLFILE SEARCHPATTERN FILEPATTERN FILEPATTERNSTART FILEPATTERNEND ADDSTART ENDSTART VERSIONSTART VERSIONEND FILEORLINK REPLACE1 REPLACED1
-call :HelperURLScraper https://github.com/RoanH/KeysPerSecond/releases/latest/ index.html /RoanH/KeysPerSecond/releases/download/ .jar -4 99 https://github.com XX 15 -4 file XX XX
-set /p link=<.\doc\link.txt
-set /p file=<.\doc\file.txt
-set /p fileversion=<.\doc\fileversion.txt
-cls
-if exist ".\extra\!file!" (
+call :HelperDownload "https://github.com/RoanH/KeysPerSecond/releases/" "index.html"
+for /f tokens^=2delims^=^" %%A in (
+  'findstr /i /c:".jar" index.html'
+) Do > .\doc\keys_per_second_link.txt Echo:%%A & goto :stop_search
+:stop_search
+set /p keys_per_second_link=<.\doc\keys_per_second_link.txt
+set "keys_per_second_link=!keys_per_second_link:~0,-1!"
+set "tempstr=!keys_per_second_link!"
+set "result=%tempstr:/=" & set "result=%"
+set "keys_per_second_jar=!result!"
+set "fileversion=!keys_per_second_jar:~15,-4!"
+if exist index.html del index.html >nul
+if "!Debug!" EQU "1" (
+  cls
+  echo "!keys_per_second_link!"
+  echo "!keys_per_second_jar!"
+  echo PRESS ENTER TO CONTINUE & pause >nul
+)
+if exist ".\extra\!keys_per_second_jar!" (
   echo keys per second is updated.
   echo PRESS ENTER TO CONTINUE & pause >nul
   exit /b 2
 )
 echo upgrading to keys per second v!fileversion!
-call :HelperDownload "!link!" "!file!"
+call :HelperDownload "!keys_per_second_link!" "!keys_per_second_jar!"
 :MoveKeysPerSecond
-move "!file!" ".\extra\!file!"
+move "!keys_per_second_jar!" ".\extra\!keys_per_second_jar!"
 :CopyKeysPerSecond
-echo f | xcopy ".\extra\!file!" ".\bin\keyspersecond\keyspersecond.jar" /e /i /y
+echo f | xcopy ".\extra\!keys_per_second_jar!" ".\bin\keyspersecond\keyspersecond.jar" /e /i /y
 :UpdateJava
 call :HelperDownloadJava
 :NullExtra
@@ -313,7 +325,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 3 > .\doc\version.txt
+echo 4 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
