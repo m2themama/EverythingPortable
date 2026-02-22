@@ -1,0 +1,14 @@
+
+===================================================================================
+=                              https://element.io/en/                             =
+===================================================================================
+=                    Freedom to communicate on your own terms.                    =
+=                                                                                 =
+=    Element is a digitally sovereign, secure and interoperable communications    =
+= platform. Built on the Matrix open standard, it gives users the independence to =
+=                     control and manage their communications.                    =
+=                                                                                 =
+= Element gives organisations the control they would expect from corporate email, =
+=   but across an end-to-end encrypted platform that includes mobile messaging,   =
+=                     desktop collaboration, voice and video.                     =
+===================================================================================
