@@ -198,7 +198,7 @@ set /a counter+=1
 REM for /f tokens^=%counter%delims^=^" %%A in (
 REM   'findstr /i /c:"https://cdn-fastly.obsproject.com/downloads/OBS-Studio" download'
 for /f tokens^=%counter%delims^=^" %%A in (
-  'findstr /i /c:"Download Zip" download'
+  'findstr /i /c:"-Windows-x64.zip" download'
 ) Do > .\doc\obs_link.txt Echo:%%A
 set /p obs_link=<.\doc\obs_link.txt
 REM call :HelperDownload "https://api.github.com/repos/jp9000/obs-studio/releases/latest" "latest"
@@ -216,20 +216,20 @@ if "!Debug!" EQU "1" (
   echo !obs_link!
   echo !counter!
 )
-if "!obs_link:~0,53!"=="https://obsproject.com/downloads/torrents/OBS-Studio-" ( if "!Debug!" EQU "1" ( echo hit ) ) & goto ExitUpgradeSearchLoop
+if "!obs_link:~0,34!"=="https://cdn-fastly.obsproject.com/" ( if "!Debug!" EQU "1" ( echo hit ) ) & goto ExitUpgradeSearchLoop
 goto UpgradeSearchLoop
 :ExitUpgradeSearchLoop
 if exist download del download >nul
-set "obs_link=!obs_link:-Installer-x64.exe.torrent=-x64.zip!"
-set "obs_link=!obs_link:https://obsproject.com/=https://cdn-fastly.obsproject.com/!"
-set "obs_link=!obs_link:/torrents/=/!"
-if "!Debug!" EQU "1" (
-  cls
-  echo "!obs_link!"
-  echo PRESS ENTER TO CONTINUE & pause >nul
-)
-if "!arch!"=="32" set "obs_link=!obs_link:~0,-13!-Full-x86.zip"
-if "!arch!"=="64" set "obs_link=!obs_link:~0,-13!-Full-x64.zip"
+REM set "obs_link=!obs_link:-Installer-x64.exe.torrent=-x64.zip!"
+REM set "obs_link=!obs_link:https://obsproject.com/=https://cdn-fastly.obsproject.com/!"
+REM set "obs_link=!obs_link:/torrents/=/!"
+REM if "!Debug!" EQU "1" (
+REM   cls
+REM   echo "!obs_link!"
+REM   echo PRESS ENTER TO CONTINUE & pause >nul
+REM )
+REM if "!arch!"=="32" set "obs_link=!obs_link:~0,-13!-Full-x86.zip"
+REM if "!arch!"=="64" set "obs_link=!obs_link:~0,-13!-Full-x64.zip"
 REM set "obs_temp=!obs_link!"
 REM set /a counter=0
 REM goto continue_execution
@@ -249,7 +249,7 @@ set "result=%tempstr:/=" & set "result=%"
 set "obs_zip=!result!"
 if "!Debug!" EQU "1" (
   cls
-  echo "!obs_zip:~11,-13!"
+  echo "!obs_zip:~11,-16!"
   echo "!obs_zip!"
   echo "!obs_link!"
   echo PRESS ENTER TO CONTINUE & pause >nul
@@ -263,7 +263,7 @@ if exist ".\extra\!obs_zip!" (
   exit /b 2
 )
 cls
-echo upgrading to obs v!obs_zip:~11,-13!
+echo upgrading to obs v!obs_zip:~11,-16!
 call :HelperDownload "!obs_link!" "!obs_zip!"
 :MoveOBS
 move "!obs_zip!" ".\extra\!obs_zip!"
@@ -446,7 +446,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 48 > .\doc\version.txt
+echo 49 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
