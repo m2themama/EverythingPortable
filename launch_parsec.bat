@@ -112,6 +112,7 @@ cls
 taskkill /f /im Parsec.exe
 if exist .\bin\parsec\ rmdir /s /q .\bin\parsec\
 if exist .\extra\parsec-flat-windows32.zip del parsec-flat-windows32.zip >nul
+if exist .\extra\parsec-flat-windows.zip del parsec-flat-windows.zip >nul
 exit /b 2
 
 :5
@@ -184,13 +185,14 @@ cls
 cls
 title Portable Parsec Launcher - Helper Edition - Parsec Update Check
 if exist parsec-flat-windows32.zip del parsec-flat-windows32.zip >nul
-call :HelperDownload "https://builds.parsecgaming.com/package/parsec-flat-windows32.zip" "parsec-flat-windows32.zip"
+if exist parsec-flat-windows.zip del parsec-flat-windows.zip >nul
+call :HelperDownload "https://builds.parsec.app/package/parsec-flat-windows.zip" "parsec-flat-windows.zip"
 :MoveParsec
-move parsec-flat-windows32.zip .\extra\parsec-flat-windows32.zip >nul
+move parsec-flat-windows.zip .\extra\parsec-flat-windows.zip >nul
 :ExtractParsec
-call :HelperExtract "!folder!\extra\parsec-flat-windows32.zip" "!folder!\bin\parsec\"
+call :HelperExtract "!folder!\extra\parsec-flat-windows.zip" "!folder!\bin\parsec\"
 :NullExtra
-if "!NullExtra!" EQU "1" ( echo.>".\extra\parsec-flat-windows32.zip")
+if "!NullExtra!" EQU "1" ( echo.>".\extra\parsec-flat-windows.zip")
 exit /b 2
 
 :e
@@ -303,7 +305,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 5 > .\doc\version.txt
+echo 6 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
