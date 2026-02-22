@@ -61,7 +61,7 @@ twitch
 firefox
 19
 vivaldi
-26
+27
 virtual_dj
 20
 game_maker_studio_2

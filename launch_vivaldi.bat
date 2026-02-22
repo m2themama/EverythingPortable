@@ -181,12 +181,14 @@ cls
 :UpgradeVivaldi
 title Portable Vivaldi Launcher - Helper Edition - Vivaldi Update Check
 if exist index.html del index.html >nul
-call :HelperDownload "https://vivaldi.com/download/" "index.html"
+if exist index.html@platform=win del index.html@platform=win >nul
+call :HelperDownload "https://vivaldi.com/download/archive/?platform=win" "index.html@platform=win"
+move "index.html@platform=win" "index.html"
 set counter=0
 :UpgradeSearchLoop
 set /a counter+=1
 for /f tokens^=%counter%delims^=^" %%A in (
-  'findstr /i /c:".exe" index.html'
+  'findstr /i /c:".x64.exe" index.html'
 ) Do > .\doc\vivaldi_link.txt Echo:%%A
 set /p vivaldi_link=<.\doc\vivaldi_link.txt
 if "!Debug!" EQU "1" (
@@ -336,7 +338,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 26 > .\doc\version.txt
+echo 27 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
