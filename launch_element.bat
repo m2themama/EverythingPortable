@@ -215,6 +215,13 @@ xcopy .\temp\lib\net45\* .\bin\element\ /e /i /y
 if exist .\temp\ rmdir /s /q .\temp\
 :NullExtra
 if "!NullExtra!" EQU "1" ( echo.>".\extra\Element Setup.exe")
+cls
+echo FOR FIRST SETUP YOU HAVE TO LOGIN NATURALLY AS THE API WILL TRY TO OPEN ELEMENT AGAIN BUT WITHOUT THE REDIRECTIONS
+echo TO GET AROUND THIS WE WILL BE LAUNCHING NORMALLY THEN ONCE YOU ARE LOGGED IN YOUR APPLICATION WILL CLOSE AND IT WILL BE COPIED
+echo NO CHANGES ARE NEEDED IN THE FUTURE
+echo.
+echo WHEN YOU ARE FINISHED LOGGING IN CLOSE THE PROGRAM AND IT WILL IMPORT IT AND RELAUNCH
+pause
 exit /b 2
 
 :e
@@ -334,7 +341,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 2 > .\doc\version.txt
+echo 3 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
