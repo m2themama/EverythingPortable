@@ -211,6 +211,7 @@ REM echo f | xcopy ".\extra\!revolt_exe!" ".\bin\revolt\revolt.exe" /e /i /y
 :ExtractRevolt
 call :HelperExtract7zip ".\extra\!revolt_exe!" ".\temp\"
 call :HelperExtract7Zip ".\temp\$PLUGINSDIR\app-64.7z" ".\bin\revolt\"
+if exist .\temp\ rmdir /s /q .\temp\
 :NullExtra
 if "!NullExtra!" EQU "1" ( echo.>".\extra\!revolt_7z!")
 exit /b 2
@@ -325,7 +326,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 7 > .\doc\version.txt
+echo 8 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
