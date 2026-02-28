@@ -181,52 +181,38 @@ exit /b 2
 cls
 :UpgradeRPCS3
 title Portable RPCS3 Launcher - Helper Edition - RPCS3 Update Check
-if exist index.html del index.html >nul
-call :HelperDownload "https://github.com/RPCS3/rpcs3-binaries-win/releases/latest/" "index.html"
-set counter=0
-:UpgradeSearchLoop
-set /a counter+=1
-for /f tokens^=%counter%delims^=^" %%A in (
-  'findstr /i /c:"_win64.7z" index.html'
-) Do > .\doc\rpcs3_link.txt Echo:%%A& goto ExitSearch
-:ExitSearch
+if exist latest del latest >nul
+call :HelperDownload "https://api.github.com/repos/RPCS3/rpcs3-binaries-win/releases/latest" "latest"
+:: create file or wont work (do not run on same file)
+:: create file or wont work (do not run on same file)
+echo.> latest.txt
+TYPE latest | MORE /P > latest.txt
+for /f tokens^=4delims^=^" %%A in (
+  'findstr /i /c:"_win64_msvc.7z" latest.txt'
+) Do > .\doc\rpcs3_link.txt Echo:%%A
+if exist latest del latest >nul
+if exist latest.txt del latest.txt >nul
 set /p rpcs3_link=<.\doc\rpcs3_link.txt
-if "!Debug!" EQU "1" (
-  echo !rpcs3_link!
-  echo !counter!
-)
-if "!rpcs3_link:~0,44!"=="/RPCS3/rpcs3-binaries-win/releases/download/" ( if "!Debug!" EQU "1" ( echo hit ) ) & goto ExitUpgradeSearchLoop
-goto UpgradeSearchLoop
-:ExitUpgradeSearchLoop
-if exist index.html del index.html >nul
-set "rpcs3_link=https://github.com!rpcs3_link!"
-if "!Debug!" EQU "1" (
-  cls
-  echo "!rpcs3_link!"
-  echo PRESS ENTER TO CONTINUE & pause >nul
-)
-set "rpcs3_temp=!rpcs3_link!"
-set /a counter=0
-:LoopSlashCheck
+set "rpcs3_link=!rpcs3_link:.sha256=!"
 set "tempstr=!rpcs3_link!"
 set "result=%tempstr:/=" & set "result=%"
 set "rpcs3_7z=!result!"
 if "!Debug!" EQU "1" (
   cls
-  echo "!rpcs3_7z:~7,-9!"
-  echo "!rpcs3_7z!"
+  echo "!rpcs3_7z:~7,-14!"
   echo "!rpcs3_link!"
+  echo "!rpcs3_7z!"
   echo PRESS ENTER TO CONTINUE & pause >nul
 )
-if exist download del download >nul
-if exist latest.txt del latest.txt >nul
+)
+if exist "!rpcs3_7z!" "!rpcs3_7z!" >nul
 if exist ".\extra\!rpcs3_7z!" (
   echo rpcs3 is updated.
   pause
   exit /b 2
 )
 cls
-echo upgrading to rpcs3 v!rpcs3_7z:~7,-9!
+echo upgrading to rpcs3 v!rpcs3_7z:~7,-14!
 call :HelperDownload "!rpcs3_link!" "!rpcs3_7z!"
 :MoveRPCS3
 move "!rpcs3_7z!" ".\extra\!rpcs3_7z!"
@@ -346,7 +332,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 7 > .\doc\version.txt
+echo 8 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
