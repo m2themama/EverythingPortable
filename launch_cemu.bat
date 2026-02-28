@@ -184,55 +184,60 @@ exit /b 2
 cls
 :UpgradeCemu
 title Portable Cemu Launcher - Helper Edition - Cemu Update Check
-if exist index.html del index.html >nul
-call :HelperDownload "https://cemu.info/#Download" "index.html"
-for /f tokens^=2delims^=^" %%A in (
-  'findstr /i /c:"https://cemu.info/releases/" index.html'
+if exist latest del latest >nul
+call :HelperDownload "https://api.github.com/repos/cemu-project/Cemu/releases/latest" "latest"
+:: create file or wont work (do not run on same file)
+:: create file or wont work (do not run on same file)
+echo.> latest.txt
+TYPE latest | MORE /P > latest.txt
+pause
+for /f tokens^=4delims^=^" %%A in (
+  'findstr /i /c:"-windows-x64.zip" latest.txt'
 ) Do > .\doc\cemu_link.txt Echo:%%A
+if exist latest del latest >nul
+if exist latest.txt del latest.txt >nul
 set /p cemu_link=<.\doc\cemu_link.txt
-set "cemu_zip=!cemu_link:~27,20!"
-if exist index.html del index.html >nul
-cls
-if exist .\extra\!cemu_zip! (
-  echo cemu is updated.
-  pause
-  exit /b
-)
-cls
-set "cemu_txt=!cemu_zip:~0,-4!"
-set "cemu_txt=!cemu_txt:.=_!"
-set "cemu_txt=http://cemu.info/changelog/!cemu_txt!.txt"
+set "tempstr=!cemu_link!"
+set "result=%tempstr:/=" & set "result=%"
+set "cemu_zip=!result!"
+set "cemu_dir=!cemu_zip:-windows-x64.zip=!"
+set "cemu_dir=!cemu_dir:-=_!"
 if "!Debug!" EQU "1" (
   cls
+  echo "!cemu_zip:~5,-16!"
+  echo "!cemu_link!"
   echo "!cemu_zip!"
-  echo "!cemu_txt!"
-  echo "!cemu_txt:~27!"
   echo PRESS ENTER TO CONTINUE & pause >nul
 )
-if not exist ".\doc\!cemu_txt:~27!" call :HelperDownload "!cemu_txt!" "!cemu_txt:~27!" & move "!cemu_txt:~27!" ".\doc\!cemu_txt:~27!"
-if exist batch-read.bat pause & call batch-read ".\doc\!cemu_txt:~27!" 10 1
-echo upgrading to cemu v!cemu_zip:~5,-4!
-if exist cemu*.zip del /q cemu*.zip >nul
+if exist "!cemu_zip!" "!cemu_zip!" >nul
+if exist ".\extra\!cemu_zip!" (
+  cls
+  echo cemu is updated.
+  pause
+  exit /b 2
+)
+cls
+echo upgrading to cemu v!cemu_zip:~5,-16!
 call :HelperDownload "!cemu_link!" "!cemu_zip!"
 if not exist !cemu_zip! call :ErrorOffline & exit /b 2
-if exist !cemu_zip! move !cemu_zip! .\extra\!cemu_zip!
+:MoveCemu
+move "!cemu_zip!" ".\extra\!cemu_zip!"
+:ExtractCemu
 call :HelperExtract "!folder!\extra\!cemu_zip!" "!folder!\bin\cemu\"
 cd bin
 if exist cemu cd cemu
-if exist "!cemu_zip:~0,-4!" cd "!cemu_zip:~0,-4!"
-if exist "!cemu_zip:~0,4!!cemu_zip:~5,-4!" cd "!cemu_zip:~0,4!!cemu_zip:~5,-4!"
+if exist "!cemu_dir!" cd "!cemu_dir!"
 if not exist ..\wget.exe (
   if not exist ..\cemu_always_updated.bat (
     xcopy * ..\ /e /i /y
     cd ..
   )
   for /D %%A IN ("cemu*") DO echo if exist "%%A" rmdir /s /q "%%A"
-  if exist "!cemu_zip:~0,-4!" rmdir /s /q "!cemu_zip:~0,-4!"
-  if exist "!cemu_zip:~0,4!!cemu_zip:~5,-4!" rmdir /s /q "!cemu_zip:~0,4!!cemu_zip:~5,-4!"
+  if exist "!cemu_dir!" rmdir /s /q "!cemu_dir!"
 )
 cd "!folder!"
 :NullExtra
-if "!NullExtra!" EQU "1" ( echo.>".\extra\!cemu_zip!")
+if "!NullExtra!" EQU "1" ( echo.>".\extra\!rpcs3_7z!")
 exit /b 2
 
 :e
@@ -353,7 +358,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 55 > .\doc\version.txt
+echo 56 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
