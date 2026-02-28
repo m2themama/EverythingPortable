@@ -190,7 +190,6 @@ call :HelperDownload "https://api.github.com/repos/cemu-project/Cemu/releases/la
 :: create file or wont work (do not run on same file)
 echo.> latest.txt
 TYPE latest | MORE /P > latest.txt
-pause
 for /f tokens^=4delims^=^" %%A in (
   'findstr /i /c:"-windows-x64.zip" latest.txt'
 ) Do > .\doc\cemu_link.txt Echo:%%A
@@ -235,6 +234,7 @@ if not exist ..\wget.exe (
   for /D %%A IN ("cemu*") DO echo if exist "%%A" rmdir /s /q "%%A"
   if exist "!cemu_dir!" rmdir /s /q "!cemu_dir!"
 )
+cd "!folder!\"
 cd "!folder!"
 :NullExtra
 if "!NullExtra!" EQU "1" ( echo.>".\extra\!rpcs3_7z!")
@@ -358,7 +358,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 56 > .\doc\version.txt
+echo 57 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
