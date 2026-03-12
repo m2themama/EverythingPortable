@@ -143,7 +143,7 @@ keys_per_second
 azahar
 2
 eden
-2
+3
 ryubing
 4
 element

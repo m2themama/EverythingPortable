@@ -182,7 +182,7 @@ cls
 cls
 title Portable Eden Launcher - Helper Edition - Eden Update Check
 if exist index.html del index.html >nul
-call :HelperDownload "https://github.com/eden-emulator/Releases/releases/" "index.html"
+call :HelperDownload "https://git.eden-emu.dev/eden-emu/eden/releases/latest/" "index.html"
 for /f tokens^=2delims^=^" %%A in (
   'findstr /i /c:"-amd64-msvc-standard.zip" index.html'
 ) Do > .\doc\eden_link.txt Echo:%%A & goto :stop_search
@@ -210,7 +210,7 @@ call :HelperDownload "!eden_link!" "!eden_zip!"
 :MoveEden
 move "!eden_zip!" ".\extra\!eden_zip!"
 :ExtractEden
-call :HelperExtract "!CD!\extra\!eden_zip!" "!CD!\bin\eden\"
+call :HelperExtract "!folder!\extra\!eden_zip!" "!folder!\bin\eden\"
 :NullExtra
 if "!NullExtra!" EQU "1" ( echo.>".\extra\!eden_zip!")
 exit /b 2
@@ -225,7 +225,7 @@ exit /b 2
 :y
 cls
 pushd "!Folder!\data\Users\MarioMasta64\"
-start cmd /c "explorer.exe !CD!"
+start cmd /c "explorer.exe !folder!"
 popd
 exit /b 2
 
@@ -325,7 +325,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 2 > .\doc\version.txt
+echo 3 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
