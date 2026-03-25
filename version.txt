@@ -45,7 +45,7 @@ qbittorrent
 ntlite
 18
 dolphin
-19
+20
 skype_legacy_poc
 0
 project64
@@ -129,7 +129,7 @@ rpcs3
 notepad_plus_plus
 9
 dolphin_beta
-8
+9
 fiddler
 6
 osu
