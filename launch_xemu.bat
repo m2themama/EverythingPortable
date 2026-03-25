@@ -36,7 +36,7 @@ set nag="Selection Time!"
 echo 1. reinstall xemu [will remove xemu entirely]
 echo 2. launch xemu [launches xemu]
 echo 3. reset xemu [will remove everything xemu except the binary]
-echo 4. uninstall xemu [<insert quirk>]
+echo 4. uninstall xemu [don't like the idea of having to search for bios files?]
 echo 5. update script [check for updates]
 echo 6. credits [credits]
 echo 7. exit [EXIT]
@@ -513,7 +513,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 3 > .\doc\version.txt
+echo 4 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
