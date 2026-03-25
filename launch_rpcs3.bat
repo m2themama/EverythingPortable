@@ -47,6 +47,8 @@ echo c. write a quicklauncher [MAKE IT EVEN FASTER]
 echo d. check for new rpcs3 version [automatically check for a new version]
 echo e. install text-reader [update if had]
 echo.
+echo f. relink paths
+echo.
 echo y. open explorer [open windows explorer to user directory]
 echo z. purge current install [ reset, uninstall, and delete launcher]
 echo.
@@ -229,6 +231,51 @@ call :HelperDownload "https://mariomasta64.me/batch/text-reader/update-text-read
 start "" "update-text-reader.bat"
 exit /b 2
 
+:f
+cls
+for %%A in (!folder!\bin\rpcs3\config\games.yml) do (
+  set "A=%%A"
+  for /f "DELIMS=" %%B in (%%A) do (
+    set "B=%%B"
+    if "!B:~0,1!" EQU "B" (
+      set "C=!B:~11!"
+      if "!C:~0,1!" NEQ "C" (
+        if "!C:~0,1!" NEQ "A" (
+          if "!C:~0,1!" NEQ "B" (
+            set "D=!C:~0,1!"
+            set "E=!C:~2!"
+            set "K=!E:/=\!"
+            for /F "tokens=1*" %%G in ('fsutil fsinfo drives') do (
+              for %%I in (%%H) do (
+                for /F "tokens=3" %%J in ('fsutil fsinfo drivetype %%I') do (
+                  if "%%J" neq "CD-Rom Drive" (
+                  if "%%J" neq "Remote/Network Drive" (
+                  if "%%J" neq "Ram Disk" (
+                  if "%%J" neq "Unknown Drive" (
+                  if "%%J" neq "No such Root Directory" (
+                    set "I=%%I"
+                    if "!D:~0,1!" NEQ "!I:~0,1!" (
+                      if exist "!I!!K:~1!" (
+                        echo "!D!:\ moved to !I! relinking..."
+                        call :HelperReplaceText "!A!" "!D!:!E!" "!I:~0,2!!E!"
+                      )
+                    )
+                  )
+                  )
+                  )
+                  )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)
+exit /b 2
+
 :y
 cls
 pushd "!Folder!\data\Users\MarioMasta64\"
@@ -332,7 +379,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 8 > .\doc\version.txt
+echo 9 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2

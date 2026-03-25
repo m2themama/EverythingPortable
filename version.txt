@@ -125,7 +125,7 @@ gimp
 vlc
 8
 rpcs3
-8
+9
 notepad_plus_plus
 9
 dolphin_beta
