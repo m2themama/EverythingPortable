@@ -47,6 +47,10 @@ echo c. write a quicklauncher [MAKE IT EVEN FASTER]
 echo d. check for new xemu version [automatically check for a new version]
 echo e. install text-reader [update if had]
 echo.
+echo f. download additional files
+echo.
+echo g. download additional files
+echo.
 echo y. open explorer [open windows explorer to user directory]
 echo z. purge current install [ reset, uninstall, and delete launcher]
 echo.
@@ -225,10 +229,185 @@ if "!NullExtra!" EQU "1" ( echo.>".\extra\!xemu_exe!")
 exit /b 2
 
 :e
-title Portable Revolt Launcher - Helper Edition - Text-Reader Update Check
+title Portable Xemu Launcher - Helper Edition - Text-Reader Update Check
 cls
 call :HelperDownload "https://mariomasta64.me/batch/text-reader/update-text-reader.bat" "update-text-reader.bat"
 start "" "update-text-reader.bat"
+exit /b 2
+
+:f
+cls
+for %%A in (!folder!\data\Users\MarioMasta64\AppData\Roaming\xemu\xemu\xemu.toml) do (
+  set "A=%%A"
+  for /f "DELIMS=" %%B in (%%A) do (
+    set "B=%%B"
+    if "!B:~0,5!" EQU "bootr" (
+      set "C=!B:~16,-1!"
+      if "!C:~0,1!" NEQ "C" (
+        if "!C:~0,1!" NEQ "A" (
+          if "!C:~0,1!" NEQ "B" (
+            set "D=!C:~0,1!"
+            set "E=!C:~2!"
+            set "K=!E:/=\!"
+            for /F "tokens=1*" %%G in ('fsutil fsinfo drives') do (
+              for %%I in (%%H) do (
+                for /F "tokens=3" %%J in ('fsutil fsinfo drivetype %%I') do (
+                  if "%%J" neq "CD-Rom Drive" (
+                  if "%%J" neq "Remote/Network Drive" (
+                  if "%%J" neq "Ram Disk" (
+                  if "%%J" neq "Unknown Drive" (
+                  if "%%J" neq "No such Root Directory" (
+                    set "I=%%I"
+                    if "!D:~0,1!" NEQ "!I:~0,1!" (
+                      if exist "!I!!K:~1!" (
+                        echo "!D!:\ moved to !I! relinking..."
+                        call :HelperReplaceText "!A!" "!D!:!E!" "!I:~0,2!!E!"
+                      )
+                    )
+                  )
+                  )
+                  )
+                  )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+    if "!B:~0,5!" EQU "flash" (
+      set "C=!B:~17,-1!"
+      if "!C:~0,1!" NEQ "C" (
+        if "!C:~0,1!" NEQ "A" (
+          if "!C:~0,1!" NEQ "B" (
+            set "D=!C:~0,1!"
+            set "E=!C:~2!"
+            set "K=!E:/=\!"
+            for /F "tokens=1*" %%G in ('fsutil fsinfo drives') do (
+              for %%I in (%%H) do (
+                for /F "tokens=3" %%J in ('fsutil fsinfo drivetype %%I') do (
+                  if "%%J" neq "CD-Rom Drive" (
+                  if "%%J" neq "Remote/Network Drive" (
+                  if "%%J" neq "Ram Disk" (
+                  if "%%J" neq "Unknown Drive" (
+                  if "%%J" neq "No such Root Directory" (
+                    set "I=%%I"
+                    if "!D:~0,1!" NEQ "!I:~0,1!" (
+                      if exist "!I!!K:~1!" (
+                        echo "!D!:\ moved to !I! relinking..."
+                        call :HelperReplaceText "!A!" "!D!:!E!" "!I:~0,2!!E!"
+                      )
+                    )
+                  )
+                  )
+                  )
+                  )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+    if "!B:~0,5!" EQU "eepro" (
+      set "C=!B:~15,-1!"
+      if "!C:~0,1!" NEQ "C" (
+        if "!C:~0,1!" NEQ "A" (
+          if "!C:~0,1!" NEQ "B" (
+            set "D=!C:~0,1!"
+            set "E=!C:~2!"
+            set "K=!E:/=\!"
+            for /F "tokens=1*" %%G in ('fsutil fsinfo drives') do (
+              for %%I in (%%H) do (
+                for /F "tokens=3" %%J in ('fsutil fsinfo drivetype %%I') do (
+                  if "%%J" neq "CD-Rom Drive" (
+                  if "%%J" neq "Remote/Network Drive" (
+                  if "%%J" neq "Ram Disk" (
+                  if "%%J" neq "Unknown Drive" (
+                  if "%%J" neq "No such Root Directory" (
+                    set "I=%%I"
+                    if "!D:~0,1!" NEQ "!I:~0,1!" (
+                      if exist "!I!!K:~1!" (
+                        echo "!D!:\ moved to !I! relinking..."
+                        call :HelperReplaceText "!A!" "!D!:!E!" "!I:~0,2!!E!"
+                      )
+                    )
+                  )
+                  )
+                  )
+                  )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+    if "!B:~0,5!" EQU "hdd_p" (
+      set "C=!B:~12,-1!"
+      if "!C:~0,1!" NEQ "C" (
+        if "!C:~0,1!" NEQ "A" (
+          if "!C:~0,1!" NEQ "B" (
+            set "D=!C:~0,1!"
+            set "E=!C:~2!"
+            set "K=!E:/=\!"
+            for /F "tokens=1*" %%G in ('fsutil fsinfo drives') do (
+              for %%I in (%%H) do (
+                for /F "tokens=3" %%J in ('fsutil fsinfo drivetype %%I') do (
+                  if "%%J" neq "CD-Rom Drive" (
+                  if "%%J" neq "Remote/Network Drive" (
+                  if "%%J" neq "Ram Disk" (
+                  if "%%J" neq "Unknown Drive" (
+                  if "%%J" neq "No such Root Directory" (
+                    set "I=%%I"
+                    if "!D:~0,1!" NEQ "!I:~0,1!" (
+                      if exist "!I!!K:~1!" (
+                        echo "!D!:\ moved to !I! relinking..."
+                        call :HelperReplaceText "!A!" "!D!:!E!" "!I:~0,2!!E!"
+                      )
+                    )
+                  )
+                  )
+                  )
+                  )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)
+pause
+exit /b 2
+
+:g
+title Portable Xemu Launcher - Helper Edition - Gather Files
+cls
+if exist "index.html@group=content&amp;plugin=retrovaultdownloads&amp;format=raw&amp;id=285&amp;dl=primary" del "index.html@group=content&amp;plugin=retrovaultdownloads&amp;format=raw&amp;id=285&amp;dl=primary"
+if not exist ".\extra\complex-4627v1.03.zip" (
+  call :HelperDownload "https://www.ogxbox.co.uk/component/ajax/?group=content&amp;plugin=retrovaultdownloads&amp;format=raw&amp;id=285&amp;dl=primary" "complex-4627v1.03.zip"
+  move "index.html@group=content&amp;plugin=retrovaultdownloads&amp;format=raw&amp;id=285&amp;dl=primary" ".\extra\complex-4627v1.03.zip"
+)
+call :HelperExtract "!folder!\extra\complex-4627v1.03.zip" "!AppData!\xemu\"
+if exist "index.html@group=content&amp;plugin=retrovaultdownloads&amp;format=raw&amp;id=286&amp;dl=primary" del "index.html@group=content&amp;plugin=retrovaultdownloads&amp;format=raw&amp;id=286&amp;dl=primary"
+if not exist ".\extra\boot-rom-image.zip" (
+  call :HelperDownload "https://www.ogxbox.co.uk/component/ajax/?group=content&amp;plugin=retrovaultdownloads&amp;format=raw&amp;id=286&amp;dl=primary" "boot-rom-image.zip"
+  move "index.html@group=content&amp;plugin=retrovaultdownloads&amp;format=raw&amp;id=286&amp;dl=primary" ".\extra\boot-rom-image.zip"
+)
+call :HelperExtract "!folder!\extra\boot-rom-image.zip" "!AppData!\xemu\"
+if exist "index.html@group=content&amp;plugin=retrovaultdownloads&amp;format=raw&amp;id=287&amp;dl=primary" del "index.html@group=content&amp;plugin=retrovaultdownloads&amp;format=raw&amp;id=287&amp;dl=primary"
+if not exist ".\extra\hard-disk-image.zip" (
+  call :HelperDownload "https://www.ogxbox.co.uk/component/ajax/?group=content&amp;plugin=retrovaultdownloads&amp;format=raw&amp;id=287&amp;dl=primary" "hard-disk-image.zip"
+  move "index.html@group=content&amp;plugin=retrovaultdownloads&amp;format=raw&amp;id=287&amp;dl=primary" ".\extra\hard-disk-image.zip"
+)
+call :HelperExtract "!folder!\extra\hard-disk-image.zip" "!AppData!\xemu\"
+echo ALL THE STUFF THAT WAS DOWNLOADED IS LOCATED IN "!AppData!\xemu\" YOU CAN SELECT IT IN SETTINGS THERE
 exit /b 2
 
 :y
@@ -334,7 +513,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 1 > .\doc\version.txt
+echo 2 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2

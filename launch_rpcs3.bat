@@ -223,7 +223,7 @@ if "!NullExtra!" EQU "1" ( echo.>".\extra\!rpcs3_7z!")
 exit /b 2
 
 :e
-title Portable Revolt Launcher - Helper Edition - Text-Reader Update Check
+title Portable RPCS3 Launcher - Helper Edition - Text-Reader Update Check
 cls
 call :HelperDownload "https://mariomasta64.me/batch/text-reader/update-text-reader.bat" "update-text-reader.bat"
 start "" "update-text-reader.bat"

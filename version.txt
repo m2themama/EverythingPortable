@@ -151,4 +151,4 @@ element
 libreoffice
 1
 xemu
-1
+2
