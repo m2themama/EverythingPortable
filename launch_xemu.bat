@@ -241,6 +241,41 @@ for %%A in (!folder!\data\Users\MarioMasta64\AppData\Roaming\xemu\xemu\xemu.toml
   set "A=%%A"
   for /f "DELIMS=" %%B in (%%A) do (
     set "B=%%B"
+    if "!B:~0,5!" EQU "games" (
+      set "C=!B:~13,-1!"
+      if "!C:~0,1!" NEQ "C" (
+        if "!C:~0,1!" NEQ "A" (
+          if "!C:~0,1!" NEQ "B" (
+            set "D=!C:~0,1!"
+            set "E=!C:~2!"
+            set "K=!E:/=\!"
+            for /F "tokens=1*" %%G in ('fsutil fsinfo drives') do (
+              for %%I in (%%H) do (
+                for /F "tokens=3" %%J in ('fsutil fsinfo drivetype %%I') do (
+                  if "%%J" neq "CD-Rom Drive" (
+                  if "%%J" neq "Remote/Network Drive" (
+                  if "%%J" neq "Ram Disk" (
+                  if "%%J" neq "Unknown Drive" (
+                  if "%%J" neq "No such Root Directory" (
+                    set "I=%%I"
+                    if "!D:~0,1!" NEQ "!I:~0,1!" (
+                      if exist "!I!!K:~1!" (
+                        echo "!D!:\ moved to !I! relinking..."
+                        call :HelperReplaceText "!A!" "!D!:!E!" "!I:~0,2!!E!"
+                      )
+                    )
+                  )
+                  )
+                  )
+                  )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
     if "!B:~0,5!" EQU "bootr" (
       set "C=!B:~16,-1!"
       if "!C:~0,1!" NEQ "C" (
@@ -513,7 +548,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 4 > .\doc\version.txt
+echo 5 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
