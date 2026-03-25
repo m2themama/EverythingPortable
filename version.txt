@@ -37,7 +37,7 @@ citra
 obs_classic
 23
 github_desktop
-28
+29
 uwamp
 19
 qbittorrent
