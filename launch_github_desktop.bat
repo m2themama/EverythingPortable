@@ -47,6 +47,8 @@ echo c. write a quicklauncher [MAKE IT EVEN FASTER]
 echo d. check for new github desktop version [automatically check for a new version]
 echo e. install text-reader [update if had]
 echo.
+echo g. login again [if revoked]
+echo.
 echo y. open explorer [open windows explorer to user directory]
 echo z. purge current install [ reset, uninstall, and delete launcher]
 echo.
@@ -236,6 +238,11 @@ xcopy "!RealUserProfile!\AppData\Roaming\GitHub Desktop\*" ".\data\Users\MarioMa
 rmdir /s /q "!RealUserProfile!\AppData\Roaming\GitHub Desktop\"
 exit /b 2
 
+:g
+call :ResetGitHubDesktop
+call :LaunchGitHubDesktop
+exit /b 2
+
 :y
 cls
 pushd "!Folder!\data\Users\MarioMasta64\"
@@ -339,7 +346,7 @@ set "NoPrompt=" & for /F "skip=5 delims=" %%l in (.\ini\settings.ini) do ( set "
 exit /b 2
 
 :Version
-echo 29 > .\doc\version.txt
+echo 30 > .\doc\version.txt
 set /p current_version=<.\doc\version.txt
 if exist .\doc\version.txt del .\doc\version.txt >nul
 exit /b 2
