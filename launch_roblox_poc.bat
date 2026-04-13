@@ -7,6 +7,7 @@ set "folder=%~dp0"
 set "folder=!folder:~0,-1!"
 pushd "!folder!"
 
+if not exist .\bin\ mkdir .\bin\
 if not exist .\extra\ mkdir .\extra\
 
 :main
